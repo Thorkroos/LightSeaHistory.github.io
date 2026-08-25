@@ -1,0 +1,1 @@
+import {supabase} from '../lib/supabase';import type {Revision} from '../types/database';export async function listRevisions(eventId:string){const {data,error}=await supabase.from('event_revisions').select('*').eq('event_id',eventId).order('revision_number',{ascending:false});if(error)throw error;return data as Revision[]}

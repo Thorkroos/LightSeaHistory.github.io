@@ -1,0 +1,4 @@
+import type {HistoryEvent} from '../types/database';
+export function formatEventDate(e:Pick<HistoryEvent,'date_text'|'date_precision'|'event_year'|'event_month'|'event_day'>){if(e.date_text?.trim())return e.date_text;const y=`${e.event_year} 年`;if(e.date_precision==='year'||!e.event_month)return y;const ym=`${y} ${e.event_month} 月`;if(e.date_precision==='day'&&e.event_day)return `${ym} ${e.event_day} 日`;return `${ym}${({early_month:'初',mid_month:'中',late_month:'末',month:'',unknown:'（日期不详）'} as Record<string,string>)[e.date_precision]??''}`}
+export function sortValue(e:Pick<HistoryEvent,'event_year'|'event_month'|'event_day'|'date_precision'>){const fallback={early_month:5,mid_month:15,late_month:28,month:15,year:1,unknown:15,day:15}[e.date_precision];return e.event_year*10000+(e.event_month||1)*100+(e.event_day||fallback)}
+export function formatTime(v:string){return new Intl.DateTimeFormat('zh-CN',{dateStyle:'medium',timeStyle:'short'}).format(new Date(v))}

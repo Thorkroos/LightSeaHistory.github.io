@@ -1,0 +1,1 @@
+export const Loading=()=> <div className="state">正在加载…</div>;export const EmptyState=({text='暂无内容'}:{text?:string})=><div className="state">{text}</div>;export const ErrorState=({message,retry}:{message:string;retry?:()=>void})=><div className="state error"><p>{message}</p>{retry&&<button onClick={retry}>重试</button>}</div>;

@@ -1,0 +1,5 @@
+import {supabase} from './supabase';
+const bucket='event-media';
+export const publicImageUrl=(path:string)=>supabase.storage.from(bucket).getPublicUrl(path).data.publicUrl;
+export async function uploadEventImages(eventId:string,files:File[]){for(const file of files){if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>10*1024*1024)throw new Error(`${file.name} 必须是 JPEG、PNG 或 WebP 且不超过 10 MB`);const ext=file.name.split('.').pop()?.toLowerCase()||'jpg';const path=`events/${eventId}/${crypto.randomUUID()}.${ext}`;const {error}=await supabase.storage.from(bucket).upload(path,file);if(error)throw error;const {error:metaError}=await supabase.from('event_images').insert({event_id:eventId,storage_path:path});if(metaError){await supabase.storage.from(bucket).remove([path]);throw metaError}}}
+export async function deleteEventImage(path:string,id:string){const {error}=await supabase.storage.from(bucket).remove([path]);if(error)throw error;const result=await supabase.from('event_images').delete().eq('id',id);if(result.error)throw result.error}
