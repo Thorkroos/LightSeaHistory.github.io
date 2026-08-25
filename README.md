@@ -1,4 +1,4 @@
-# 光说不下海 · 群史
+# Nice to meeT · 群史
 
 基于 React、TypeScript、Vite 与 Supabase 的静态群史 CMS。公开访客可以浏览时间线、事件和成员；管理员通过 Supabase Auth 登录后维护内容。前端使用 HashRouter，可直接部署到 GitHub Pages。
 
