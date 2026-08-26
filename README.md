@@ -47,6 +47,10 @@ supabase/migrations/005_member_profile_fields.sql
 
 该迁移为 `members` 增加 MBTI、出生年份、出生月份、太阳、月亮、上升、水星、金星和火星星座字段，并添加 MBTI、年份和月份约束。现有成员数据不会被删除，新字段初始均为 `NULL`。
 
+随后继续执行 `supabase/migrations/006_member_birth_day.sql`，为成员增加出生日期字段及其约束。日期只有在年份和月份均存在时才能填写。
+
+最后执行 `supabase/migrations/007_optional_birth_year.sql`，将出生年份改为选填：允许只保存月份或月日；日期仍要求月份存在。
+
 ## 数据与安全
 
 - 所有业务表均启用 RLS；匿名访客仅有公开业务表 SELECT 权限。
