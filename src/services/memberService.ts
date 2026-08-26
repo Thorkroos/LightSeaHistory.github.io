@@ -1,5 +1,5 @@
-import {supabase} from '../lib/supabase';import type {Member} from '../types/database';
+import {supabase} from '../lib/supabase';import type {Member} from '../types/database';import {friendlyError} from '../lib/errors';
 export async function listMembers(){const {data,error}=await supabase.from('members').select('*').order('display_name');if(error)throw error;return data as Member[]}
 export async function getMember(id:string){const {data,error}=await supabase.from('members').select('*').eq('id',id).single();if(error)throw error;const events=await supabase.from('event_members').select('event:events(*,category:event_categories(*))').eq('member_id',id);if(events.error)throw events.error;return {member:data as Member,events:events.data.map(x=>x.event)} }
-export async function saveMember(v:Omit<Member,'id'>,id?:string){const q=id?supabase.from('members').update(v).eq('id',id):supabase.from('members').insert(v);const {error}=await q;if(error)throw error}
+export async function saveMember(v:Omit<Member,'id'>,id?:string){const q=id?supabase.from('members').update(v).eq('id',id):supabase.from('members').insert(v);const {error}=await q;if(error)throw new Error(friendlyError(error,id?'成员更新':'成员新建'))}
 export async function deleteMember(id:string){const refs=await supabase.from('event_members').select('id',{count:'exact',head:true}).eq('member_id',id);if(refs.count)throw new Error('该成员已被事件引用，请先解除关联。');const {error}=await supabase.from('members').delete().eq('id',id);if(error)throw error}

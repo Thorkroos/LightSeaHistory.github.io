@@ -37,6 +37,16 @@ values ('管理员用户 UUID', 'admin', '管理员');
 6. 从 Project Settings → API 取得 Project URL 与 anon/publishable key，写入本地 `.env`。
 7. 确认 Storage 中存在公开 bucket `event-media`。迁移通常会自动创建；如果当前项目限制 SQL 创建 bucket，请手工创建同名 public bucket，限制 JPEG/PNG/WebP、单文件 10 MB，再重新执行 `002_rls.sql` 中四条 `storage.objects` policy。
 
+### 已有项目升级成员资料字段
+
+如果数据库已经执行过 `001`—`004`，不需要重建数据库。只需在 Supabase SQL Editor 执行：
+
+```text
+supabase/migrations/005_member_profile_fields.sql
+```
+
+该迁移为 `members` 增加 MBTI、出生年份、出生月份、太阳、月亮、上升、水星、金星和火星星座字段，并添加 MBTI、年份和月份约束。现有成员数据不会被删除，新字段初始均为 `NULL`。
+
 ## 数据与安全
 
 - 所有业务表均启用 RLS；匿名访客仅有公开业务表 SELECT 权限。

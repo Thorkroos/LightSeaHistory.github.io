@@ -1,0 +1,7 @@
+.member-form{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin-bottom:2rem}
+.member-form label{font-weight:600}
+.member-form small{display:block;color:#6a7774;font-weight:400;line-height:1.4;margin-top:.35rem}
+.form-actions{display:flex;gap:.7rem}
+.form-error{background:#f9e8e6;border:1px solid #e1aaa5;border-radius:8px;padding:.8rem 1rem}
+@media(max-width:767px){.member-form{grid-template-columns:1fr}.member-form .wide{grid-column:1}}
+.member-facts{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}.member-facts span{background:#e5eeeb;border-radius:8px;padding:.45rem .65rem}.member-facts dt,.member-facts dd{display:inline;margin:0}.member-facts dt{color:#61726e;margin-right:.35rem}
