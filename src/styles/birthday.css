@@ -1,0 +1,19 @@
+.birthday-reminder {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin: -2rem 0 3rem;
+  padding: 1.5rem 1.8rem;
+  background: linear-gradient(135deg, #fff8df, var(--paper));
+  border: 1px solid #ead7a5;
+  border-left: 5px solid var(--gold);
+  border-radius: 12px;
+}
+
+.birthday-icon { font-size: 2.6rem; }
+.birthday-reminder h2 { margin: .15rem 0; font: 1.7rem Georgia, "Noto Sans SC", serif; }
+.birthday-reminder p { margin: .25rem 0; }
+
+@media (max-width: 767px) {
+  .birthday-reminder { margin-top: -1rem; padding: 1.2rem; }
+}
